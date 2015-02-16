@@ -1,8 +1,12 @@
 'use strict';
 
-function AngularityReporter(config, baseReporterDecorator) {
+var generate = require('./generate');
+var results = require('./results');
+
+var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDecorator) {
   baseReporterDecorator(this);
 
+  var allMessages = [];
   var allResults = [];
   var numTotal = 0;
   var numSuccess = 0;
@@ -19,13 +23,14 @@ function AngularityReporter(config, baseReporterDecorator) {
 
   function onRunComplete() {
     if (numFailure > 0) {
-      console.log(bannerStart);
+      process.stdout.write(bannerStart + '\n');
     }
-    //TODO @bguiz output each of the failing tests
-    console.log('Karam tests: ' + numSuccess + '/' + numTotal +
-      (numSkipped === 0 ? '' : '(' + numSkipped + ' skipped)'));
+    generate.report(allResults);
+    // process.stdout.write( + '\n');
+    process.stdout.write('Karma tests: ' + numSuccess + '/' + numTotal +
+      (numSkipped === 0 ? '' : '(' + numSkipped + ' skipped)') + '\n');
     if (numFailure > 0) {
-      console.log(bannerStop);
+      process.stdout.write(bannerStop + '\n');
     }
   }
 
@@ -41,7 +46,7 @@ function AngularityReporter(config, baseReporterDecorator) {
     ++numTotal;
     ++numSuccess;
     allResults.push({
-      type: ResultTypes.success.name,
+      type: results.types.success.name,
       browser: browser,
       result: result,
     });
@@ -51,7 +56,7 @@ function AngularityReporter(config, baseReporterDecorator) {
     ++numTotal;
     ++numSkipped;
     allResults.push({
-      type: ResultTypes.skipped.name,
+      type: results.types.skipped.name,
       browser: browser,
       result: result,
     });
@@ -61,7 +66,7 @@ function AngularityReporter(config, baseReporterDecorator) {
     ++numTotal;
     ++numFailure;
     allResults.push({
-      type: ResultTypes.failure.name,
+      type: results.types.failure.name,
       browser: browser,
       result: result,
     });
@@ -73,7 +78,6 @@ function AngularityReporter(config, baseReporterDecorator) {
   }
 
   this.adapters = [defaultAdapter];
-
   this.onRunStart = onRunStart;
   this.onRunComplete = onRunComplete;
   this.onBrowserStart = onBrowserStart;
@@ -87,26 +91,8 @@ function AngularityReporter(config, baseReporterDecorator) {
   var hr    = new Array(bannerWidth + 1);
   var bannerStart = (hr.join('\u25BC') + '\n');
   var bannerStop = (hr.join('\u25B2') + '\n');
-  process.stdout.write(start + '\n' + report + '\n\n' + stop);
 }
 AngularityReporter.$inject = ['config', 'baseReporterDecorator'];
-
-var ResultTypes = {
-  success: {
-    name: 'success',
-    symbol: '✓',
-  },
-  skipped: {
-    name: 'skipped',
-    symbol: '✗',
-  },
-  failure: {
-    name: 'failure',
-    symbol: '-',
-  },
-};
-
-
 
 module.exports = {
   'reporter:angularity': ['type', AngularityReporter],
