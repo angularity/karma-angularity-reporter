@@ -1,6 +1,6 @@
 {
   "name": "karma-angularity-reporter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The default reporter for karma test runner used by angularity",
   "main": "index.js",
   "scripts": {
