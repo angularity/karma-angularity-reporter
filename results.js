@@ -7,11 +7,11 @@ var resultTypes = {
   },
   skipped: {
     name: 'skipped',
-    symbol: '✗',
+    symbol: '-',
   },
   failure: {
     name: 'failure',
-    symbol: '-',
+    symbol: '✗',
   },
 };
 

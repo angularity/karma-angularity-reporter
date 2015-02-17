@@ -28,7 +28,7 @@ var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDe
     generate.report(allResults);
     // process.stdout.write( + '\n');
     process.stdout.write('Karma tests: ' + numSuccess + '/' + numTotal +
-      (numSkipped === 0 ? '' : '(' + numSkipped + ' skipped)') + '\n');
+      (numSkipped === 0 ? '' : ' (' + numSkipped + ' skipped)') + '\n');
     if (numFailure > 0) {
       process.stdout.write(bannerStop + '\n');
     }
