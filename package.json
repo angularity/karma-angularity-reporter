@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/bguiz/karma-angularity-reporter/issues"
   },
-  "homepage": "https://github.com/bguiz/karma-angularity-reporter"
+  "homepage": "https://github.com/bguiz/karma-angularity-reporter",
+  "dependencies": {
+    "chalk": "^0.5.1"
+  }
 }
