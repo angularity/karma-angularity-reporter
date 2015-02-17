@@ -1,50 +1,43 @@
 'use strict';
 
-var generate = require('./generate');
 var results = require('./results');
+var generate = require('./generate');
 
 var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDecorator) {
   baseReporterDecorator(this);
 
   var allMessages = [];
   var allResults = [];
-  var numTotal = 0;
-  var numSuccess = 0;
-  var numSkipped = 0;
-  var numFailure = 0;
+  var counts = {
+    total: 0,
+    success: 0,
+    skipped: 0,
+    failure: 0,
+  };
 
   function defaultAdapter(msg) {
     allMessages.push(msg);
   };
 
   function onRunStart(browsers) {
-    //TODO
   }
 
   function onRunComplete() {
-    if (numFailure > 0) {
-      process.stdout.write(bannerStart + '\n');
-    }
-    generate.report(allResults);
-    // process.stdout.write( + '\n');
-    process.stdout.write('Karma tests: ' + numSuccess + '/' + numTotal +
-      (numSkipped === 0 ? '' : ' (' + numSkipped + ' skipped)') + '\n');
-    if (numFailure > 0) {
-      process.stdout.write(bannerStop + '\n');
-    }
+    generate.report({
+      results: allResults,
+      counts: counts,
+    });
   }
 
   function onBrowserStart(browser) {
-    //TODO
   }
 
   function onBrowserComplete(browser) {
-    //TODO
   }
 
   function specSuccess(browser, result) {
-    ++numTotal;
-    ++numSuccess;
+    ++counts.total;
+    ++counts.success;
     allResults.push({
       type: results.types.success.name,
       browser: browser,
@@ -53,8 +46,8 @@ var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDe
   }
 
   function specSkipped(browser, result) {
-    ++numTotal;
-    ++numSkipped;
+    ++counts.total;
+    ++counts.skipped;
     allResults.push({
       type: results.types.skipped.name,
       browser: browser,
@@ -63,8 +56,8 @@ var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDe
   }
 
   function specFailure(browser, result) {
-    ++numTotal;
-    ++numFailure;
+    ++counts.total;
+    ++counts.failure;
     allResults.push({
       type: results.types.failure.name,
       browser: browser,
@@ -73,7 +66,6 @@ var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDe
   }
 
   function onExit(done) {
-    //TODO
     done();
   }
 
@@ -86,11 +78,6 @@ var AngularityReporter = function KarmaAngularityReporter(config, baseReporterDe
   this.specSkipped = specSkipped;
   this.specFailure = specFailure;
   this.onExit = onExit;
-
-  var bannerWidth = Number(config.bannerWidth) || 80;
-  var hr    = new Array(bannerWidth + 1);
-  var bannerStart = (hr.join('\u25BC') + '\n');
-  var bannerStop = (hr.join('\u25B2') + '\n');
 }
 AngularityReporter.$inject = ['config', 'baseReporterDecorator'];
 

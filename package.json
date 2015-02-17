@@ -1,6 +1,6 @@
 {
   "name": "karma-angularity-reporter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The default reporter for karma test runner used by angularity",
   "main": "index.js",
   "scripts": {
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/bguiz/karma-angularity-reporter/issues"
   },
-  "homepage": "https://github.com/bguiz/karma-angularity-reporter"
+  "homepage": "https://github.com/bguiz/karma-angularity-reporter",
+  "dependencies": {
+    "chalk": "^0.5.1"
+  }
 }
