@@ -1,6 +1,6 @@
 {
   "name": "karma-angularity-reporter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "The default reporter for karma test runner used by angularity",
   "main": "index.js",
   "scripts": {
@@ -8,18 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bguiz/karma-angularity-reporter"
+    "url": "https://github.com/angularity/karma-angularity-reporter"
   },
   "keywords": [
     "karma-plugin",
     "karma-reporter"
   ],
-  "author": "bguiz",
+  "author": ["bguiz", "impaler", "bholloway"],
   "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/bguiz/karma-angularity-reporter/issues"
+    "url": "https://github.com/angularity/karma-angularity-reporter/issues"
   },
-  "homepage": "https://github.com/bguiz/karma-angularity-reporter",
+  "homepage": "https://github.com/angularity/karma-angularity-reporter",
   "dependencies": {
     "chalk": "^0.5.1"
   }
